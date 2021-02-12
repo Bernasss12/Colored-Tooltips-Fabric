@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "colored-tooltips",
+  "version": "${version}",
+  "name": "Colored Tooltips",
+  "description": "Changes tooltip colors to match your taste",
+  "authors": [
+    "Bernasss12"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/ctt/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.bernasss12.ctt.client.ColoredTooltipsClient"
+    ],
+    "modmenu": [
+      "dev.bernasss12.ctt.client.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "colored-tooltips.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.1",
+    "minecraft": ">=1.16.4"
+  }
+}

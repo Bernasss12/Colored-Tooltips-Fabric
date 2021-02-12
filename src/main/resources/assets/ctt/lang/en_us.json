@@ -1,0 +1,14 @@
+{
+  "screen.ctt.settings_title": "Colored Tooltips Settings",
+  "category.ctt.outline_settings" : "Outline settings",
+  "entry.ctt.outline_settings.coloring_mode": "Coloring mode:",
+  "entry.ctt.outline_settings.color": "Color:",
+  "entry.ctt.outline_settings.bottom_color_scaling": "Gradient darkening factor [0.1-1.0]",
+  "category.ctt.background_settings" : "Background settings",
+  "entry.ctt.background_settings.coloring_mode": "Coloring mode:",
+  "entry.ctt.background_settings.color": "Color:",
+  "entry.ctt.background_settings.color_scaling": "Darkening factor [0.1-1.0]",
+  "enum.ctt.coloring_setting.user_defined": "§aUser Defined",
+  "enum.ctt.coloring_setting.item_based": "§aItem Based",
+  "enum.ctt.coloring_setting.original": "§cOriginal"
+}
