@@ -10,7 +10,7 @@ repositories {
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-archivesBaseName = project.archives_base_name
+archivesBaseName = project.archives_base_name + "-" + project.minecraft_version
 version = project.mod_version
 group = project.maven_group
 
@@ -18,9 +18,8 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    //modImplementation "net.fabricmc.fabric-api:fabric-api:0.30.0+1.16"
     modImplementation "io.github.prospector:modmenu:${project.modmenu_version}"
-    implementation "me.shedaniel.cloth:basic-math:0.5.1"
+    //implementation "me.shedaniel.cloth:basic-math:0.5.1"
     modApi("me.shedaniel.cloth:cloth-config:${project.cloth_config_version}:fabric") {
         exclude(group: "net.fabricmc.fabric-api")
     }

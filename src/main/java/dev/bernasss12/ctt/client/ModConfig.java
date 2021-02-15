@@ -19,7 +19,7 @@ public class ModConfig {
     // Outline Settings
     private static final ColoringMode DEFAULT_OUTLINE_COLORING_MODE = ColoringMode.ITEM_BASED;
     protected static ColoringMode outlineColoringMode;
-    private static final int DEFAULT_OUTLINE_COLOR = 1347420415;
+    private static final int DEFAULT_OUTLINE_COLOR = 0x5000ff;
     protected static int outlineColor;
     private static final float DEFAULT_OUTLINE_DARKENING_FACTOR = 0.85f;
     protected static float outlineDarkeningFactor;
