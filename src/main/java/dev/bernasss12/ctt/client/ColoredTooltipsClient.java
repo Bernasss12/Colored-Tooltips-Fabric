@@ -3,21 +3,25 @@ package dev.bernasss12.ctt.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Environment(EnvType.CLIENT)
 public class ColoredTooltipsClient implements ClientModInitializer {
 
     public static ThreadLocal<Integer> currentNameColor;
 
-    @Override
-    public void onInitializeClient() {
-        ModConfig.loadConfig();
-        currentNameColor = new ThreadLocal<>();
-        currentNameColor.set(0);
+    public static Logger logger;
+
+    public static Logger logger() {
+        if (logger == null) {
+            logger = LogManager.getLogger("Colored-Tooltips");
+        }
+        return logger;
     }
 
-    public static int getBgColor(int original){
-        switch (ModConfig.backgroundColoringMode){
+    public static int getBgColor(int original) {
+        switch (ModConfig.backgroundColoringMode) {
             case ITEM_BASED:
                 return makeOpaque(darkenColor(currentNameColor.get(), ModConfig.backgroundDarkeningFactor));
             case USER_DEFINED:
@@ -28,12 +32,20 @@ public class ColoredTooltipsClient implements ClientModInitializer {
         }
     }
 
-    public static int getTopColor(int original){
-        switch (ModConfig.outlineColoringMode){
+    @Override
+    public void onInitializeClient() {
+        logger = logger();
+        ModConfig.loadConfig();
+        currentNameColor = new ThreadLocal<>();
+        currentNameColor.set(0);
+    }
+
+    public static int getTopColor(int original) {
+        switch (ModConfig.outlineColoringMode) {
             case ITEM_BASED:
                 return makeOpaque(currentNameColor.get());
             case USER_DEFINED:
-                return makeOpaque( ModConfig.outlineColor);
+                return makeOpaque(ModConfig.outlineColor);
             case ORIGINAL:
             default:
                 return original;
