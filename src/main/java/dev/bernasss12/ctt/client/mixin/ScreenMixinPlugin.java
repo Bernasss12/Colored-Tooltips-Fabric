@@ -25,7 +25,7 @@ public class ScreenMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return !ColoredTooltipsClient.isArchitecturyPresent;
+        return true; // !ColoredTooltipsClient.isArchitecturyPresent;
     }
 
     @Override
