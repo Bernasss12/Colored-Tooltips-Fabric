@@ -12,9 +12,6 @@ import org.apache.logging.log4j.Logger;
 @Environment(EnvType.CLIENT)
 public class ColoredTooltipsClient implements ClientModInitializer {
 
-    public static final String ARCHITECTURY_MODID = "architectury";
-    public static boolean isArchitecturyPresent = false;
-
     public static ThreadLocal<Color> currentNameColor;
 
     private static Logger logger;
