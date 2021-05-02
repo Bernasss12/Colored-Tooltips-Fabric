@@ -17,5 +17,9 @@
   "entry.ctt.general.bottom_right": "Bottom right color:",
   "enum.ctt.coloring_setting.user_defined": "§6User Defined",
   "enum.ctt.coloring_setting.item_based": "§aItem Based",
-  "enum.ctt.coloring_setting.original": "§cOriginal"
+  "enum.ctt.coloring_setting.original": "§cOriginal",
+  "entry.ctt.general.outline_enabled": "Draw outline",
+  "entry.ctt.general.outline_enabled.tooltip": "Whether or not to draw the outline.",
+  "entry.ctt.general.background_outer_ring": "Draw background outer ring",
+  "entry.ctt.general.background_outer_ring.tooltip": "Whether or not to draw the outer ring for the background."
 }

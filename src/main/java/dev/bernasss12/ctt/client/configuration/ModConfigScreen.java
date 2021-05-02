@@ -46,7 +46,6 @@ public class ModConfigScreen {
                 .setDefaultValue(config.defaultOutlineOverallDarkeningFactor)
                 .setSaveConsumer(factor -> config.outlineOverallDarkeningFactor = factor)
                 .setTooltip(new TranslatableText("entry.ctt.general.overall_darkening_factor.tooltip"))
-
                 .setMin(0.1f)
                 .setMax(1.0f)
                 .build());
@@ -56,6 +55,11 @@ public class ModConfigScreen {
                 .setTooltip(new TranslatableText("entry.ctt.general.top_to_bottom_darkening_factor.tooltip"))
                 .setMin(0.1f)
                 .setMax(1.0f)
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(new TranslatableText("entry.ctt.general.outline_enabled"), config.outlineEnabled)
+                .setDefaultValue(config.outlineEnabled)
+                .setSaveConsumer(outlineEnabled -> config.outlineEnabled = outlineEnabled)
+                .setTooltip(new TranslatableText("entry.ctt.general.outline_enabled.tooltip"))
                 .build());
         category.addEntry(entryBuilder.startAlphaColorField(new TranslatableText("entry.ctt.general.top_right"), config.outlineTopRight.getColor())
                 .setDefaultValue(config.defaultMidColor.getColor())
@@ -99,6 +103,11 @@ public class ModConfigScreen {
                 .setTooltip(new TranslatableText("entry.ctt.general.top_to_bottom_darkening_factor.tooltip"))
                 .setMin(0.1f)
                 .setMax(1.0f)
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(new TranslatableText("entry.ctt.general.background_outer_ring"), config.backgroundOuterRing)
+                .setDefaultValue(config.backgroundOuterRing)
+                .setSaveConsumer(backgroundOuterRing -> config.backgroundOuterRing = backgroundOuterRing)
+                .setTooltip(new TranslatableText("entry.ctt.general.background_outer_ring.tooltip"))
                 .build());
         category.addEntry(entryBuilder.startAlphaColorField(new TranslatableText("entry.ctt.general.top_right"), config.backgroundTopRight.getColor())
                 .setDefaultValue(config.defaultBackgroundColor.getColor())

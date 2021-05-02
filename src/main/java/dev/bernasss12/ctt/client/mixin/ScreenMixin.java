@@ -30,19 +30,19 @@ import java.util.List;
 public abstract class ScreenMixin extends DrawableHelper {
 
     @Inject(at = @At(value = "HEAD"),
-            method = "Lnet/minecraft/client/gui/screen/Screen;renderTooltip(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/item/ItemStack;II)V")
-    private void appendRenderTooltipHead(MatrixStack matrices, ItemStack stack, int x, int y, CallbackInfo info) {
+            method = "renderTooltip(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/item/ItemStack;II)V")
+    private void setCurrentItemBasedColorIfNecessary(MatrixStack matrices, ItemStack stack, int x, int y, CallbackInfo info) {
         if (ColoredTooltipsClient.config().outlineColoringMode == EnumColoringMode.ITEM_BASED || ColoredTooltipsClient.config().backgroundColoringMode == EnumColoringMode.ITEM_BASED) {
             Formatting formatting = stack.getRarity().formatting;
             if (formatting.isColor()) {
-                ColoredTooltipsClient.currentNameColor.set(new Color(formatting.getColorValue()).getOpaque());
+                ColoredTooltipsClient.currentNameColor.set(new Color(formatting.getColorValue() != null ? formatting.getColorValue() : Color.WHITE.getColor()).getOpaque());
             }
         }
     }
 
     @Inject(at = @At(value = "TAIL"),
-            method = "Lnet/minecraft/client/gui/screen/Screen;renderTooltip(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/item/ItemStack;II)V")
-    private void appendRenderTooltipTail(MatrixStack matrices, ItemStack stack, int x, int y, CallbackInfo info) {
+            method = "renderTooltip(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/item/ItemStack;II)V")
+    private void resetCurrentItemBasedColorIfNecessary(MatrixStack matrices, ItemStack stack, int x, int y, CallbackInfo info) {
         if (ColoredTooltipsClient.config().outlineColoringMode == EnumColoringMode.ITEM_BASED || ColoredTooltipsClient.config().backgroundColoringMode == EnumColoringMode.ITEM_BASED) {
             ColoredTooltipsClient.currentNameColor.set(Color.WHITE);
         }
@@ -92,16 +92,20 @@ public abstract class ScreenMixin extends DrawableHelper {
     ) {
         // Background outline drawing.
         ColorQuartet background = ColoredTooltipsClient.getBackgroundColor(o);
-        DrawingHelper.fillHorizontalGradient(matrix4f, bufferBuilder, k - 3, l - 4, k + i + 3, l - 3, r, background.topLeft, background.topRight);
-        DrawingHelper.fillHorizontalGradient(matrix4f, bufferBuilder, k - 3, l + n + 3, k + i + 3, l + n + 4, 400, background.bottomLeft, background.bottomRight);
-        DrawingHelper.fillVerticalGradient(matrix4f, bufferBuilder, k - 4, l - 3, k - 3, l + n + 3, r, background.topLeft, background.bottomLeft);
-        DrawingHelper.fillVerticalGradient(matrix4f, bufferBuilder, k + i + 3, l - 3, k + i + 4, l + n + 3, r, background.topRight, background.bottomRight);
+        if (ColoredTooltipsClient.config().backgroundOuterRing) {
+            DrawingHelper.fillHorizontalGradient(matrix4f, bufferBuilder, k - 3, l - 4, k + i + 3, l - 3, r, background.topLeft, background.topRight);
+            DrawingHelper.fillHorizontalGradient(matrix4f, bufferBuilder, k - 3, l + n + 3, k + i + 3, l + n + 4, 400, background.bottomLeft, background.bottomRight);
+            DrawingHelper.fillVerticalGradient(matrix4f, bufferBuilder, k - 4, l - 3, k - 3, l + n + 3, r, background.topLeft, background.bottomLeft);
+            DrawingHelper.fillVerticalGradient(matrix4f, bufferBuilder, k + i + 3, l - 3, k + i + 4, l + n + 3, r, background.topRight, background.bottomRight);
+        }
         DrawingHelper.fillGradient(matrix4f, bufferBuilder, k - 3, l - 3, k + i + 3, l + n + 3, r, background.topRight, background.topLeft, background.bottomLeft, background.bottomRight);
         // Outline drawing.
-        ColorQuartet outline = ColoredTooltipsClient.getOutlineColors(new ColorQuartet(new Color(p), new Color(q)));
-        DrawingHelper.fillVerticalGradient(matrix4f, bufferBuilder, k - 3, l - 3 + 1, k - 3 + 1, l + n + 3 - 1, 400, outline.topLeft, outline.bottomLeft);
-        DrawingHelper.fillVerticalGradient(matrix4f, bufferBuilder, k + i + 2, l - 3 + 1, k + i + 3, l + n + 3 - 1, 400, outline.topRight, outline.bottomRight);
-        DrawingHelper.fillHorizontalGradient(matrix4f, bufferBuilder, k - 3, l - 3, k + i + 3, l - 3 + 1, 400, outline.topLeft, outline.topRight);
-        DrawingHelper.fillHorizontalGradient(matrix4f, bufferBuilder, k - 3, l + n + 2, k + i + 3, l + n + 3, 400, outline.bottomLeft, outline.bottomRight);
+        if (ColoredTooltipsClient.config().outlineEnabled) {
+            ColorQuartet outline = ColoredTooltipsClient.getOutlineColors(new ColorQuartet(new Color(p), new Color(q)));
+            DrawingHelper.fillVerticalGradient(matrix4f, bufferBuilder, k - 3, l - 3 + 1, k - 3 + 1, l + n + 3 - 1, 400, outline.topLeft, outline.bottomLeft);
+            DrawingHelper.fillVerticalGradient(matrix4f, bufferBuilder, k + i + 2, l - 3 + 1, k + i + 3, l + n + 3 - 1, 400, outline.topRight, outline.bottomRight);
+            DrawingHelper.fillHorizontalGradient(matrix4f, bufferBuilder, k - 3, l - 3, k + i + 3, l - 3 + 1, 400, outline.topLeft, outline.topRight);
+            DrawingHelper.fillHorizontalGradient(matrix4f, bufferBuilder, k - 3, l + n + 2, k + i + 3, l + n + 3, 400, outline.bottomLeft, outline.bottomRight);
+        }
     }
 }
